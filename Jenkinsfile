@@ -1,21 +1,21 @@
-// node{
+node{
 
-//     stage('Cloning the project'){
-// 	    git branch: 'main', url: 'https://github.com/BINDU1822/sonar-jenkins.git'
-//         // git 'https://github.com/BINDU1822/ci-cd-jenkins.git'
-//     }
-//     stage('Sonarqube Static code analysis'){
-//         def scannerHome = tool 'sonarqube';
-//         withSonarQubeEnv('sonarqube'){
-//             sh "${scannerHome}/bin/sonar-scanner \
-//             -D sonar.login=admin \
-//             -D sonar.password=binduramesh@1822 \
-//             -D sonar.projectkey=sonartest \
-// 	    -D sonar.exclusions=vendors/**,resources/**,**/*,java \
-//             -D sonar.host.url=http://117.208.152.165:9000/"
-//         }
-//     }
-// }
+    stage('Cloning the project'){
+	    git branch: 'main', url: 'https://github.com/BINDU1822/sonar-jenkins.git'
+        // git 'https://github.com/BINDU1822/ci-cd-jenkins.git'
+    }
+    stage('Sonarqube Static code analysis'){
+        def scannerHome = tool 'sonarqube';
+        withSonarQubeEnv('sonarqube'){
+            sh "${scannerHome}/bin/sonar-scanner \
+            -D sonar.login=admin \
+            -D sonar.password=binduramesh@1822 \
+            -D sonar.projectkey=sonartest \
+	    -D sonar.exclusions=vendors/**,resources/**,**/*,java \
+            -D sonar.host.url=http://117.208.152.165:9000/"
+        }
+    }
+}
 
 // pipeline {
 //     agent any
