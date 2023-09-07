@@ -1,3 +1,40 @@
+node {
+    // Define the location of the SonarQube scanner executable
+    def scannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+
+    stage('Checkout') {
+        // Checkout your source code repository here (e.g., using Git)
+        checkout scm
+    }
+
+    stage('Static Code Analysis') {
+        try {
+            // Run your build commands here if needed
+            // For example, with Maven:
+            bat 'mvn clean install'
+
+            // Run SonarQube scanner for static code analysis in the background
+            def scannerArgs = "-Dsonar.projectKey=sonartest -Dsonar.projectName=sonarqubetest -Dsonar.sources=src"
+            def sonarScannerCmd = "${scannerHome}\\bin\\sonar-scanner.bat ${scannerArgs}"
+            def scannerProcess = bat(script: "start /B ${sonarScannerCmd}", returnStatus: true)
+
+            if (scannerProcess != 0) {
+                error("SonarQube analysis failed with exit code: ${scannerProcess}")
+            }
+        } catch (Exception e) {
+            currentBuild.result = 'FAILURE'
+            throw e
+        }
+    }
+
+    stage('Quality Gate') {
+        // Check the SonarQube quality gate status
+        def qualityGateStatus = waitForQualityGate()
+        if (qualityGateStatus != 'OK') {
+            error("SonarQube Quality Gate check failed: ${qualityGateStatus}")
+        }
+    }
+}
 // node{
 
 //     stage('Cloning the project'){
