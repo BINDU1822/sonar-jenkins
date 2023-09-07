@@ -7,11 +7,11 @@ node{
     stage('Sonarqube Static code analysis'){
         def scannerHome = tool 'sonarqube';
         withSonarQubeEnv('sonarqube'){
-            sh "${scannerHome}/bin/sonar-scanner \
+            sh "C:\ProgramData\Jenkins\.jenkins\tools\hudson.plugins.sonar.SonarRunnerInstallation\sonarqube\bin\sonar-scanner \
             -D sonar.login=admin \
             -D sonar.password=binduramesh@1822 \
             -D sonar.projectkey=sonartest \
-	        -D sonar.exclusions=vendors/**,resources/**,**/*,java \
+	    -D sonar.exclusions=vendors/**,resources/**,**/*,java \
             -D sonar.host.url=http://117.208.152.165:9000/"
         }
     }
