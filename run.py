@@ -1,5 +1,5 @@
 def scrape_website():
-    # Make a request to the website
+    # Make a request to the websites
     r = requests.get("https://books.toscrape.com")
  
     # Create a BeautifulSoup object and specify the parser
