@@ -2,7 +2,7 @@ def scrape_website():
     # Make a request to thee website
     r = requests.get("https://books.toscrape.com")
  
-    # Create a BeautifulSoup object and specify the parser
+    # Create a BeautifulSoup object and specify the parserss
     soup = BeautifulSoup(r.text, 'html.parser')
  
     # Find all the books on the page
